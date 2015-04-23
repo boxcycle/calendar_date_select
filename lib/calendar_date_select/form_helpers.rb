@@ -132,7 +132,7 @@ module CalendarDateSelect::FormHelpers
       if(obj.respond_to?(method) && obj.send(method).respond_to?(:strftime))
         obj.send(method).strftime(CalendarDateSelect.date_format_string(use_time))
       elsif obj.respond_to?("#{method}_before_type_cast")
-        obj.send("#{method}_before_type_cast")
+        obj.send("#{method}")
       elsif obj.respond_to?(method)
         obj.send(method).to_s
       else
