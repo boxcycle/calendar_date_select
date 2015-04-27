@@ -132,7 +132,9 @@ module CalendarDateSelect::FormHelpers
       if(obj.respond_to?(method) && obj.send(method).respond_to?(:strftime))
         obj.send(method).strftime(CalendarDateSelect.date_format_string(use_time))
       elsif obj.respond_to?("#{method}_before_type_cast")
-        obj.send("#{method}")
+      	#IG: Rails 4.1 will display object instead of value on a form
+      	#Use before_type_cast only to display the original value on error
+        obj.errors[method].present? ? obj.send("#{method}_before_type_cast") : obj.send("#{method}")
       elsif obj.respond_to?(method)
         obj.send(method).to_s
       else
